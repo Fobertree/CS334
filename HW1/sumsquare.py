@@ -10,6 +10,7 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 
 from tqdm import tqdm
+import os
 
 def gen_random_samples(n: int) -> np.ndarray:
     """
@@ -22,7 +23,6 @@ def gen_random_samples(n: int) -> np.ndarray:
         An array of n random samples
     """
 
-    # TODO: Implement this function
     sample = np.random.randn(n)
     return sample
 
@@ -154,20 +154,14 @@ def main():
     input_dims = [i for i in range(1,10**7, 10000)]
 
     df = timess_to_df(time_ss(input_dims))
-    #df['index'] = input_dims
     df.set_index('n', inplace=True)
-    #df.to_csv("sumsquare.csv")
+
     ax = plt.plot(df)
     ax = plt.gca()
     ax.set(xlabel="Sample Length", ylabel = "Time (LOG)", title= "Log Time comparison between sum_squares with for loop vs np.dot")
     ax.legend(['ssfor', 'ssnp'])
     plt.yscale('log')
-    print(df)
-    plt.show()
-    plt.savefig('sumsquare.png')
-    input()
-
-    #timess_to_df(time_ss(gen_random_samples(10)))
+    plt.savefig(os.path.join('HW1/data','sumsquare.png'))
 
 
 if __name__ == "__main__":
